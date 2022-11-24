@@ -1,15 +1,9 @@
 require 'rails_helper'
 
-#RSpec.feature "Projects", type: :feature do
-#  pending "add some scenarios (or delete) #{__FILE__}"
-#end
-
-#require 'rails_helper'
-
 RSpec.feature "Projects", type: :feature do
   context "Create new project" do
     before(:each) do
-      #visit new_user_session_path
+      
       user = FactoryBot.create(:user)
       login_as(user)
       
@@ -59,9 +53,11 @@ RSpec.feature "Projects", type: :feature do
   context "Remove existing project" do
     let!(:project) { Project.create(title: "Test title", description: "Test content") }
     scenario "remove project" do
+
         visit project_path(project)
         user = FactoryBot.create(:user)
         login_as(user)
+        
         click_button "Destroy this project"
       expect(page).to have_content("Project was successfully destroyed")
       expect(Project.count).to eq(0)
