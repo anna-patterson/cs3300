@@ -1,36 +1,81 @@
 <p id="notice"><%= notice %></p>
-<h1>Projects</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.title %></td>
-        <td><%= project.description %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render 'navBar', project: @project %>
+<br><br><br>
 <br>
 
-<%= link_to 'New Project', new_project_path %>
-<br>
-<br>
 
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, :method => :delete, :class => 'navbar-link'  %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-<% end %>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Jumbotron Template for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/jumbotron/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <main role="main">
+
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Hello welcome to my portfolio :)</h1>
+          <p>My name is Anna and I created this website.</p>
+          <%= link_to 'New Project', new_project_path, class:"btn btn-success" %>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <div class="row">
+        <% @projects.each do |project| %>
+          <div class="col-md-4">
+            <div class="card body">
+             <h5 class="card-title">  <td><%= project.title %></td></h5>
+
+              <% if project.description.length > 100 %>
+                <p class="card-text"><td><%= project.description.slice(0..100) ... %></td> <p>
+              <% else %>
+                <p class="card-text"><td><%= project.description%></td> <p>
+              <% end %>
+
+              <td><%= link_to 'Show', project, class:"btn btn-primary" %></td>
+
+              <% if user_signed_in? %>
+                <td><%= link_to 'Edit', edit_project_path(project), class:"btn btn-secondary" %></td>
+                <td><%= link_to 'Destroy', project, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?', turbo_method: :delete} %></td>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+      <p>© Anna Patterson</p>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="../../assets/js/vendor/popper.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+
+
+</body>

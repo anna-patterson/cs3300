@@ -1,12 +1,21 @@
 require 'rails_helper'
+# project test 
+
+#RSpec.feature "Projects", type: :feature do
+#  pending "add some scenarios (or delete) #{__FILE__}"
+#end
+
+#require 'rails_helper'
 
 RSpec.feature "Projects", type: :feature do
   context "Create new project" do
     before(:each) do
-      
+
+      #visit new_user_session_path
       user = FactoryBot.create(:user)
       login_as(user)
-      
+      #sign_in user
+
       visit new_project_path
       within("form") do
         fill_in "Title", with: "Test title"
@@ -54,11 +63,12 @@ RSpec.feature "Projects", type: :feature do
     let!(:project) { Project.create(title: "Test title", description: "Test content") }
     scenario "remove project" do
 
-        visit project_path(project)
-        user = FactoryBot.create(:user)
-        login_as(user)
-        
-        click_button "Destroy this project"
+      visit projects_path
+      user = FactoryBot.create(:user)
+      login_as(user)
+
+      visit projects_path
+      click_link "Destroy"
       expect(page).to have_content("Project was successfully destroyed")
       expect(Project.count).to eq(0)
     end

@@ -1,10 +1,20 @@
 <p style="color: green"><%= notice %></p>
+<%= render 'navBar', project: @project %>
+<br><br><br>
+<br><br><br>
 
-<%= render @project %>
+<div class ="text-center">
 
-<div>
-  <%= link_to "Edit this project", edit_project_path(@project) %> |
-  <%= link_to "Back to projects", projects_path %>
-
-  <%= button_to "Destroy this project", @project, method: :delete %>
-</div>
+<div class="container">
+  <p>
+    <h2><%= @project.title %></h2>
+  </p>
+  
+  <p>
+    <%= @project.description %>
+  </p>
+  
+  <%= link_to 'Edit', edit_project_path(@project) %> |
+  <%= link_to 'Back', projects_path %>
+  </div>
+  </div>
